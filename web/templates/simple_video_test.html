@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Video Test</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        video {
+            width: 80%;
+            max-width: 800px;
+            background: #000;
+            border: 2px solid #00d4ff;
+            border-radius: 10px;
+        }
+        .info {
+            margin: 20px 0;
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        button {
+            background: #00d4ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0099cc;
+        }
+        .log {
+            text-align: left;
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎥 Simple Video Test</h1>
+
+    <div class="info">
+        <p>Testing direct video playback with H.264 file</p>
+    </div>
+
+    <video id="test-video" controls preload="metadata" muted playsinline>
+        <source src="/api/video/VID_20250220_092039_00_265" type="video/mp4">
+        Your browser does not support video playback.
+    </video>
+
+    <div>
+        <button onclick="testLoad()">🔄 Reload Video</button>
+        <button onclick="testPlay()">▶️ Play</button>
+        <button onclick="testPause()">⏸️ Pause</button>
+        <button onclick="clearLog()">🗑️ Clear Log</button>
+    </div>
+
+    <div class="info">
+        <p id="status">Status: Loading...</p>
+    </div>
+
+    <div class="log" id="log"></div>
+
+    <script>
+        const video = document.getElementById('test-video');
+        const status = document.getElementById('status');
+        const log = document.getElementById('log');
+
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            log.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            log.scrollTop = log.scrollHeight;
+            console.log(message);
+        }
+
+        function updateStatus(msg) {
+            status.textContent = msg;
+            addLog(`Status: ${msg}`);
+        }
+
+        function testLoad() {
+            addLog('🔄 Reloading video...');
+            video.load();
+        }
+
+        function testPlay() {
+            addLog('▶️ Attempting to play...');
+            video.play().then(() => {
+                addLog('✅ Play successful');
+            }).catch(error => {
+                addLog(`❌ Play failed: ${error.message}`);
+            });
+        }
+
+        function testPause() {
+            addLog('⏸️ Pausing video...');
+            video.pause();
+        }
+
+        function clearLog() {
+            log.innerHTML = '';
+        }
+
+
+        video.addEventListener('loadstart', () => {
+            addLog('📹 loadstart - Started loading');
+            updateStatus('Loading started...');
+        });
+
+        video.addEventListener('durationchange', () => {
+            addLog(`📹 durationchange - Duration: ${video.duration}s`);
+        });
+
+        video.addEventListener('loadedmetadata', () => {
+            addLog(`📹 loadedmetadata - ${video.videoWidth}x${video.videoHeight}, ${video.duration}s`);
+            updateStatus(`Video loaded: ${video.videoWidth}x${video.videoHeight}`);
+        });
+
+        video.addEventListener('loadeddata', () => {
+            addLog('📹 loadeddata - First frame loaded');
+        });
+
+        video.addEventListener('canplay', () => {
+            addLog('📹 canplay - Can start playing');
+            updateStatus('Ready to play');
+        });
+
+        video.addEventListener('canplaythrough', () => {
+            addLog('📹 canplaythrough - Can play without buffering');
+        });
+
+        video.addEventListener('play', () => {
+            addLog('📹 play - Started playing');
+            updateStatus('Playing');
+        });
+
+        video.addEventListener('pause', () => {
+            addLog('📹 pause - Paused');
+            updateStatus('Paused');
+        });
+
+        video.addEventListener('ended', () => {
+            addLog('📹 ended - Playback finished');
+            updateStatus('Ended');
+        });
+
+        video.addEventListener('error', (e) => {
+            addLog(`❌ error - ${e.type}`);
+            if (video.error) {
+                addLog(`❌ Error details: Code ${video.error.code}, Message: ${video.error.message}`);
+                updateStatus(`Error: ${video.error.message}`);
+            } else {
+                updateStatus('Unknown video error');
+            }
+        });
+
+        video.addEventListener('stalled', () => {
+            addLog('⚠️ stalled - Download stalled');
+        });
+
+        video.addEventListener('waiting', () => {
+            addLog('⏳ waiting - Waiting for data');
+        });
+
+        video.addEventListener('progress', () => {
+            if (video.buffered.length > 0) {
+                const buffered = video.buffered.end(0);
+                addLog(`📊 progress - Buffered: ${buffered.toFixed(2)}s`);
+            }
+        });
+
+
+        addLog('🚀 Page loaded, initializing video test...');
+        updateStatus('Initializing...');
+    </script>
+</body>
+</html>

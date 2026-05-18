@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人工评分前端 - {{ video_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="validation-page">
+  <div class="container validation-shell">
+    <header class="header validation-header">
+      <h1>人工评分与复核</h1>
+      <p>{{ video_name }} · 评分结果将写入 <code>output/{{ video_name }}/validation/final_annotation_labels_adjudicated.csv</code></p>
+    </header>
+
+    <section class="glass-card validation-guide">
+      <div class="card-head">
+        <h2>评分说明</h2>
+        <div class="pill-stat">按真实 segment 评分</div>
+      </div>
+      <div class="guide-list">
+        <div>1. 当前评分单位是 <code>segment</code>，不是单帧，也不是 episode。</div>
+        <div>2. 左侧查看视频、声音和结构化证据，右侧填写评分。</div>
+        <div>3. 切换片段后，视频会自动跳到该片段起点；播放超过片段结束时间会自动暂停。</div>
+        <div>4. 若存在 <code>validation/audio_clips</code>，页面会优先使用该片段独立音频。</div>
+        <div>5. 所有评分项采用 1~5 分；主要问题标签可以多选。</div>
+        <div>6. 首要问题标签应从主要问题标签中选一个；若无明显问题，可选“无主要问题”。</div>
+        <div>7. 点击“保存当前评分”或使用 <code>Ctrl+S</code> 保存；左右方向键切换片段。</div>
+      </div>
+    </section>
+
+    <section class="validation-toolbar">
+      <div class="validation-toolbar-left">
+        <button id="prev-segment-btn" class="control-btn">上一个片段</button>
+        <button id="next-segment-btn" class="control-btn">下一个片段</button>
+        <button id="seek-segment-btn" class="control-btn">回到片段起点</button>
+        <button id="play-segment-btn" class="control-btn accent-btn">播放当前片段</button>
+        <button id="play-audio-btn" class="control-btn">播放当前声音</button>
+        <button id="save-segment-btn" class="control-btn primary-btn">保存当前评分</button>
+      </div>
+      <div class="validation-toolbar-right">
+        <label class="inline-field"><span>当前片段</span><select id="segment-selector"></select></label>
+        <label class="inline-checkbox"><input type="checkbox" id="filter-unreviewed-toggle"><span>仅显示未评分片段</span></label>
+        <div id="validation-progress" class="pill-stat">正在加载…</div>
+      </div>
+    </section>
+
+    <main class="validation-grid">
+      <section class="validation-evidence">
+        <div class="glass-card">
+          <div class="card-head">
+            <h2>片段视频与声音证据</h2>
+            <div class="validation-status-cluster">
+              <div id="segment-counter-pill" class="pill-stat">片段 -- / --</div>
+              <div id="segment-state-pill" class="pill-stat">状态：--</div>
+              <div id="segment-time-pill" class="pill-stat">--</div>
+            </div>
+          </div>
+          <video id="segment-media" class="validation-media" controls preload="metadata" playsinline></video>
+          <audio id="segment-audio" class="validation-audio" controls preload="metadata"></audio>
+          <div class="media-note">视频优先使用原始带声音视频；若存在独立音频片段，则下方播放器优先使用对应的 validation/audio_clips。</div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-head">
+            <h2>代表性画面</h2>
+            <div id="frame-count-pill" class="pill-stat">--</div>
+          </div>
+          <div id="frame-preview-strip" class="frame-preview-strip"></div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-head">
+            <h2>辅助证据摘要</h2>
+            <div id="bootstrap-pill" class="pill-stat">初稿状态：--</div>
+          </div>
+          <div class="evidence-panels">
+            <div class="evidence-panel"><h3>片段信息</h3><div id="segment-meta" class="evidence-list"></div></div>
+            <div class="evidence-panel"><h3>空间位置</h3><div id="segment-geo" class="evidence-list"></div></div>
+            <div class="evidence-panel"><h3>视觉摘要</h3><div id="segment-visual" class="evidence-list"></div></div>
+            <div class="evidence-panel"><h3>声景摘要</h3><div id="segment-soundscape" class="evidence-list"></div></div>
+            <div class="evidence-panel"><h3>融合摘要</h3><div id="segment-fusion" class="evidence-list"></div></div>
+            <div class="evidence-panel wide"><h3>街景-声景关系解释</h3><div id="segment-relationship" class="evidence-list"></div></div>
+            <div class="evidence-panel wide"><h3>诊断摘要</h3><div id="segment-diagnostics" class="evidence-list"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="validation-form-panel">
+        <div class="glass-card">
+          <div class="card-head">
+            <h2>评分表单</h2>
+            <div id="save-status" class="pill-stat">尚未保存</div>
+          </div>
+          <form id="validation-form" class="validation-form">
+            <div class="field-block readonly-block"><label for="segment-id-input">片段编号</label><input id="segment-id-input" type="text" readonly></div>
+            <div class="field-block"><label for="street-type-select">街道类型</label><select id="street-type-select"></select></div>
+            <div class="score-grid">
+              <div class="field-block"><label>舒适度评分</label><div id="comfort-score-group" class="score-group"></div></div>
+              <div class="field-block"><label>活力度评分</label><div id="vitality-score-group" class="score-group"></div></div>
+              <div class="field-block"><label>声景愉悦度</label><div id="soundscape-pleasantness-group" class="score-group"></div></div>
+              <div class="field-block"><label>声景事件性</label><div id="soundscape-eventfulness-group" class="score-group"></div></div>
+              <div class="field-block"><label>总体问题严重度</label><div id="overall-problem-severity-group" class="score-group"></div></div>
+              <div class="field-block"><label>评分置信度</label><div id="confidence-score-group" class="score-group"></div></div>
+            </div>
+            <div class="field-block"><label>主要问题标签</label><div id="main-problem-labels-group" class="tag-selector"></div></div>
+            <div class="field-block"><label for="primary-problem-label-select">首要问题标签</label><select id="primary-problem-label-select"></select></div>
+            <div class="field-block"><label for="annotator-notes-textarea">备注</label><textarea id="annotator-notes-textarea" rows="6" placeholder="可记录判断依据、疑问点或后续复核说明"></textarea></div>
+          </form>
+          <div class="form-hint">快捷键：<code>Ctrl+S</code> 保存，<code>←</code>/<code>→</code> 切换片段。</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    window.VALIDATION_VIDEO_NAME = {{ video_name|tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+</body>
+</html>

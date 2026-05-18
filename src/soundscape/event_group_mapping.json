@@ -1,0 +1,59 @@
+{
+  "traffic": [
+    "car",
+    "bus",
+    "truck",
+    "motor",
+    "motorcycle",
+    "vehicle",
+    "train",
+    "rail",
+    "road",
+    "traffic",
+    "siren",
+    "horn"
+  ],
+  "human": [
+    "speech",
+    "conversation",
+    "talk",
+    "voice",
+    "child",
+    "children",
+    "crowd",
+    "applause",
+    "laugh",
+    "cry",
+    "scream",
+    "footstep",
+    "walk",
+    "run"
+  ],
+  "nature": [
+    "bird",
+    "animal",
+    "dog",
+    "cat",
+    "insect",
+    "rain",
+    "water",
+    "wind",
+    "thunder",
+    "nature",
+    "ocean"
+  ],
+  "mechanical": [
+    "engine",
+    "machine",
+    "mechanical",
+    "drill",
+    "jackhammer",
+    "construction",
+    "compressor",
+    "printer",
+    "fan",
+    "air",
+    "hvac"
+  ],
+  "other": []
+}

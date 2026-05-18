@@ -1,0 +1,57 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Secrets and local config
+apikey.env
+*.key
+*.secret
+launcher_config.json
+
+# Build artifacts
+build/
+dist/
+*.spec~
+*.manifest
+
+# Runtime logs
+*.log
+insta360_segmentation.log
+
+# Runtime inputs and outputs
+input/
+output/
+output_gps.csv
+output_gps.xlsx
+chapter5_results_recommendation.txt
+
+# Large local binaries and model weights
+ffmpeg.exe
+yolo11m.pt
+models/
+*.pt
+*.pth
+*.h5
+*.onnx
+*.ckpt
+
+# Media files
+*.mp4
+*.mov
+*.avi
+*.insv
+*.mkv
+*.webm
+*.wav
+
+# OS metadata
+.DS_Store
+Thumbs.db
