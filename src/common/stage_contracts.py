@@ -55,7 +55,6 @@ STAGE_EXPECTED_OUTPUTS: Dict[str, List[str]] = {
     "gis_export": [
         "gis/frame_gis_export.csv",
         "gis/segment_gis_export.csv",
-        "gis/problem_episode_gis_export.csv",
         "gis/gis_export_summary.json",
     ],
     "web_sync": [

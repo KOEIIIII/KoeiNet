@@ -144,6 +144,7 @@ def _aggregate_segment_row(
     segment_row: pd.Series,
     frame_feature_map: Mapping[int, Dict[str, float]],
     ai_full: pd.DataFrame,
+    visual_feature_sources: str,
 ) -> Dict[str, object]:
     frame_paths = [str(item) for item in _parse_jsonish_list(segment_row["included_frame_paths"])]
     frame_indices = [int(item) for item in _parse_jsonish_list(segment_row["included_frame_indices"])]
@@ -162,7 +163,7 @@ def _aggregate_segment_row(
         "visual_frame_count": int(len(feature_rows)),
         "visual_frame_coverage_ratio": float(len(feature_rows) / max(1, len(frame_nums))),
         "ai_activity_frame_count": int(len(ai_rows)),
-        "visual_feature_sources": "frames + ai_evaluation/activity_scores.csv",
+        "visual_feature_sources": visual_feature_sources,
     }
 
     if not feature_df.empty:
@@ -210,9 +211,6 @@ def build_segment_visual_features(
 
     if not manifest_path.is_file():
         raise FileNotFoundError(f"segment manifest not found: {manifest_path.as_posix()}")
-    if not activity_csv.is_file():
-        raise FileNotFoundError(f"ai activity score file not found: {activity_csv.as_posix()}")
-
     out_dir = video_dir / "visual"
     out_dir.mkdir(parents=True, exist_ok=True)
     output_csv = Path(output_csv) if output_csv else out_dir / "segment_visual_features.csv"
@@ -247,13 +245,25 @@ def build_segment_visual_features(
         raise ValueError("failed to compute any frame-level visual metrics")
 
     max_frame_num = max(frame_feature_map.keys())
-    ai_full = _load_ai_scores(activity_csv, max_frame_num=max_frame_num)
+    if activity_csv.is_file():
+        ai_full = _load_ai_scores(activity_csv, max_frame_num=max_frame_num)
+        visual_feature_sources = "frames + ai_evaluation/activity_scores.csv"
+    else:
+        ai_full = pd.DataFrame({"frame_num": np.arange(max_frame_num + 1, dtype=int)})
+        visual_feature_sources = "frames"
 
     rows = []
     if progress_callback:
         progress_callback(0, len(manifest_df), "visual | segment aggregation")
     for idx, (_, row) in enumerate(manifest_df.iterrows()):
-        rows.append(_aggregate_segment_row(row, frame_feature_map=frame_feature_map, ai_full=ai_full))
+        rows.append(
+            _aggregate_segment_row(
+                row,
+                frame_feature_map=frame_feature_map,
+                ai_full=ai_full,
+                visual_feature_sources=visual_feature_sources,
+            )
+        )
         if progress_callback:
             progress_callback(idx + 1, len(manifest_df), "visual | segment aggregation")
     result_df = pd.DataFrame(rows).sort_values("segment_id").reset_index(drop=True)
@@ -262,7 +272,7 @@ def build_segment_visual_features(
     return {
         "video_dir": video_dir.as_posix(),
         "manifest_path": manifest_path.as_posix(),
-        "activity_csv": activity_csv.as_posix(),
+        "activity_csv": activity_csv.as_posix() if activity_csv.is_file() else None,
         "output_csv": output_csv.as_posix(),
         "segment_rows": int(len(result_df)),
         "frame_feature_rows": int(len(frame_feature_map)),
