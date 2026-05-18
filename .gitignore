@@ -19,6 +19,8 @@ launcher_config.json
 # Build artifacts
 build/
 dist/
+release_packages/
+*.zip
 *.spec~
 *.manifest
 
