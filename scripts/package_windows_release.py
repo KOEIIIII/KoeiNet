@@ -130,7 +130,7 @@ Join_And_Extract.bat 自动合并并解压。解压完成后，打开：
 不要把 exe 单独移出 KoeiNet_Windows 文件夹，因为 _internal 文件夹中包含
 程序运行所需的依赖库和资源。
 """,
-        encoding="utf-8",
+        encoding="utf-8-sig",
     )
 
 
