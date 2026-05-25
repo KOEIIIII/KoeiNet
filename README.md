@@ -1,3 +1,6 @@
+- [English README](README_en.md)
+- [中文说明](README_zh.md)
+
 # KoeiNet
 
 **KoeiNet is a panoramic-video-based multimodal street-space evaluation system for historic districts.**
@@ -165,8 +168,6 @@ Program 02:
 - [桌面应用下载说明](docs/DOWNLOAD_DESKTOP_APPS_zh.md)
 - [Test Report](docs/TEST_REPORT_en.md)
 - [测试报告](docs/TEST_REPORT_zh.md)
-- [Cleanup Report](docs/CLEANUP_REPORT_en.md)
-- [清理报告](docs/CLEANUP_REPORT_zh.md)
 
 ## Repository Contents / 仓库内容
 

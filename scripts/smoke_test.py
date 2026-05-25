@@ -115,7 +115,7 @@ def main() -> int:
         record(results, f"{Path(script).stem}_dry_run", code == 0 and "PyInstaller" in out, f"{script} dry run completed.")
 
     report = {"results": results}
-    report_path = ROOT / "docs" / "smoke_test_results.json"
+    report_path = ROOT / "_tmp_smoke" / "smoke_test_results.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     shutil.rmtree(work_dir, ignore_errors=True)
     print(json.dumps(report, ensure_ascii=False, indent=2))
