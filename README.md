@@ -2,7 +2,7 @@
 
 **KoeiNet is a panoramic-video-based multimodal street-space evaluation system for historic districts.**
 
-**KoeiNet 是一个面向历史街区的全景视频多模态街道空间智能评价系统。**
+**KoeiNet 是一个面向步行空间的全景视频多模态街道空间智能评价系统。**
 
 ## Download And Run The Desktop Apps / 下载并运行桌面应用
 
