@@ -1,0 +1,4 @@
+segment_id,start_time_sec,end_time_sec,center_time_sec,included_frame_indices,included_frame_paths
+1,0,5,2.5,"[0,1]","[""frames/frame_000001.jpg""]"
+2,5,10,7.5,"[2,3]","[""frames/frame_000002.jpg""]"
+3,10,15,12.5,"[4,5]","[""frames/frame_000003.jpg""]"

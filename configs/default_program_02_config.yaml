@@ -1,0 +1,12 @@
+{
+  "program": "program_02_scoring_problem_detection",
+  "program_01_output": "",
+  "annotation_csv": "",
+  "coefficient_config": "configs/street_type_coefficients.yaml",
+  "output_dir": "",
+  "top_k": 12,
+  "top_percent": null,
+  "priority_threshold": null,
+  "max_gap_seconds": 5.0,
+  "update_visualization_artifacts": true
+}

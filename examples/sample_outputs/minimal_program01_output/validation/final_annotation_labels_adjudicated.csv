@@ -1,0 +1,4 @@
+segment_id,street_type,comfort_score,vitality_score,soundscape_pleasantness,soundscape_eventfulness,overall_problem_severity,main_problem_labels,primary_problem_label,confidence_score,annotator_notes
+1,mixed_use,4,3,3,4,2,[],no_major_problem,4,
+2,commercial,2,2,2,5,4,"[""traffic_noise"",""pedestrian_discomfort""]",traffic_noise,4,Noisy and uncomfortable segment.
+3,residential,3,2,2,4,4,"[""low_vitality""]",low_vitality,3,Weak frontage activity.

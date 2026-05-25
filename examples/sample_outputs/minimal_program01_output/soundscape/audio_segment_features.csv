@@ -1,0 +1,4 @@
+segment_id,loudness_rms_mean,pleasantness_proxy
+1,0.20,0.70
+2,0.72,0.25
+3,0.48,0.35

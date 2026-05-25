@@ -1,51 +1,82 @@
-# Python cache
+# Python caches and test byproducts
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
 
-# Virtual environments
+# Local environments
 venv/
 .venv/
 env/
+.env
+*.env
+!apikey.env.template
 
-# Secrets and local config
+# IDE and OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets and local machine configuration
 apikey.env
 *.key
 *.secret
+*token*
 launcher_config.json
 
-# Build artifacts
-build/
-dist/
-release_packages/
-*.zip
+# Runtime logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+insta360_segmentation.log
+_tmp*/
+tmp/
+temp/
+
+# Local raw data and generated results
+/input/
+/output/
+/archive_unused/
+/output_gps.csv
+/output_gps.xlsx
+/chapter5_results_recommendation.txt
+
+# PyInstaller and release byproducts
+/build/
+/dist/
+/release/
+/release_packages/
+*.spec
 *.spec~
 *.manifest
+*.zip
 
-# Runtime logs
-*.log
-insta360_segmentation.log
-
-# Runtime inputs and outputs
-input/
-output/
-output_gps.csv
-output_gps.xlsx
-chapter5_results_recommendation.txt
-
-# Large local binaries and model weights
-ffmpeg.exe
-yolo11m.pt
-models/
+# Large local binaries, models, and caches
+/ffmpeg.exe
+/yolo11m.pt
+/models/
+/config/model_dir/
 *.pt
 *.pth
 *.h5
 *.onnx
 *.ckpt
+*.safetensors
 
-# Media files
+# Media files are ignored by default; curated tiny examples are explicitly kept.
 *.mp4
 *.mov
 *.avi
@@ -53,7 +84,4 @@ models/
 *.mkv
 *.webm
 *.wav
-
-# OS metadata
-.DS_Store
-Thumbs.db
+!examples/sample_inputs/VID_20250625_101458_00_006.mp4

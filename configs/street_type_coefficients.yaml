@@ -1,0 +1,119 @@
+{
+  "name": "default configuration",
+  "score_min": 1,
+  "score_max": 5,
+  "default_threshold": 0.45,
+  "fusion_risk_feature_columns": [
+    "visual_semantic__road__mean",
+    "visual_semantic__car__mean",
+    "visual_semantic__truck__mean",
+    "audio__loudness_rms_mean"
+  ],
+  "street_types": {
+    "default": {
+      "label": "default configuration",
+      "severity_threshold": 0.45,
+      "desired_eventfulness": [2.5, 4.5],
+      "coefficients": {
+        "overall_problem_severity": 0.34,
+        "comfort_deficit": 0.18,
+        "vitality_deficit": 0.12,
+        "soundscape_pleasantness_deficit": 0.14,
+        "soundscape_eventfulness_gap": 0.08,
+        "fusion_feature_risk": 0.06,
+        "label_presence": 0.08,
+        "confidence_adjustment": 0.08
+      }
+    },
+    "commercial": {
+      "label": "commercial / active street",
+      "severity_threshold": 0.46,
+      "desired_eventfulness": [3.0, 5.0],
+      "coefficients": {
+        "overall_problem_severity": 0.30,
+        "comfort_deficit": 0.17,
+        "vitality_deficit": 0.16,
+        "soundscape_pleasantness_deficit": 0.12,
+        "soundscape_eventfulness_gap": 0.07,
+        "fusion_feature_risk": 0.08,
+        "label_presence": 0.10,
+        "confidence_adjustment": 0.08
+      }
+    },
+    "residential": {
+      "label": "residential / living street",
+      "severity_threshold": 0.43,
+      "desired_eventfulness": [2.0, 3.8],
+      "coefficients": {
+        "overall_problem_severity": 0.36,
+        "comfort_deficit": 0.20,
+        "vitality_deficit": 0.08,
+        "soundscape_pleasantness_deficit": 0.16,
+        "soundscape_eventfulness_gap": 0.08,
+        "fusion_feature_risk": 0.04,
+        "label_presence": 0.08,
+        "confidence_adjustment": 0.08
+      }
+    },
+    "arterial": {
+      "label": "arterial / transport movement",
+      "severity_threshold": 0.48,
+      "desired_eventfulness": [2.0, 4.0],
+      "coefficients": {
+        "overall_problem_severity": 0.32,
+        "comfort_deficit": 0.18,
+        "vitality_deficit": 0.06,
+        "soundscape_pleasantness_deficit": 0.16,
+        "soundscape_eventfulness_gap": 0.10,
+        "fusion_feature_risk": 0.10,
+        "label_presence": 0.08,
+        "confidence_adjustment": 0.08
+      }
+    },
+    "park": {
+      "label": "park / leisure-cultural street",
+      "severity_threshold": 0.42,
+      "desired_eventfulness": [2.0, 4.5],
+      "coefficients": {
+        "overall_problem_severity": 0.34,
+        "comfort_deficit": 0.14,
+        "vitality_deficit": 0.10,
+        "soundscape_pleasantness_deficit": 0.20,
+        "soundscape_eventfulness_gap": 0.08,
+        "fusion_feature_risk": 0.04,
+        "label_presence": 0.10,
+        "confidence_adjustment": 0.08
+      }
+    },
+    "campus": {
+      "label": "campus / mixed institutional street",
+      "severity_threshold": 0.44,
+      "desired_eventfulness": [2.2, 4.2],
+      "coefficients": {
+        "overall_problem_severity": 0.34,
+        "comfort_deficit": 0.18,
+        "vitality_deficit": 0.10,
+        "soundscape_pleasantness_deficit": 0.16,
+        "soundscape_eventfulness_gap": 0.08,
+        "fusion_feature_risk": 0.06,
+        "label_presence": 0.08,
+        "confidence_adjustment": 0.08
+      }
+    },
+    "mixed_use": {
+      "label": "mixed-use street",
+      "severity_threshold": 0.45,
+      "desired_eventfulness": [2.5, 4.5],
+      "coefficients": {
+        "overall_problem_severity": 0.34,
+        "comfort_deficit": 0.18,
+        "vitality_deficit": 0.12,
+        "soundscape_pleasantness_deficit": 0.14,
+        "soundscape_eventfulness_gap": 0.08,
+        "fusion_feature_risk": 0.06,
+        "label_presence": 0.08,
+        "confidence_adjustment": 0.08
+      }
+    }
+  }
+}

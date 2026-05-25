@@ -1,0 +1,2 @@
+﻿episode_id,start_time_sec,end_time_sec,duration_sec,segment_ids,n_segments,representative_segment_id,hero_frame_index,hero_frame_path,representative_frame_indices,representative_frame_paths
+episode_001,5.0,15.0,10.0,"[2, 3]",2,2,5,frames/frame_000003.jpg,"[2, 5]","['frames/frame_000002.jpg', 'frames/frame_000003.jpg']"
