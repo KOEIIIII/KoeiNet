@@ -37,14 +37,36 @@ Program 02 是第二阶段应用，基于 Program 01 的输出继续进行人工
 
 ## Quick Start / 快速开始
 
-For local packaged delivery, use the PyInstaller one-folder applications:
+Download desktop applications from GitHub Releases:
 
 ```text
-dist/Program01_AnalysisVisualization/Program01_AnalysisVisualization.exe
-dist/Program02_ScoringProblemDetection/Program02_ScoringProblemDetection.exe
+https://github.com/KOEIIIII/KoeiNet/releases
 ```
 
-普通用户可双击上述 exe 启动图形界面。分发时需要保留完整 one-folder 目录，不要只复制单个 exe 文件。
+For a packaged Windows release, download all files named like:
+
+```text
+KoeiNet_Windows.zip.part001
+KoeiNet_Windows.zip.part002
+...
+Join_And_Extract.bat
+README_FIRST.txt
+```
+
+Put all downloaded files in the same folder, then double-click `Join_And_Extract.bat`. After extraction, open:
+
+```text
+KoeiNet_Windows/Program01_AnalysisVisualization.exe
+KoeiNet_Windows/Program02_ScoringProblemDetection.exe
+```
+
+桌面应用下载地址：
+
+```text
+https://github.com/KOEIIIII/KoeiNet/releases
+```
+
+下载所有 `KoeiNet_Windows.zip.part001`、`KoeiNet_Windows.zip.part002` 等分卷文件，以及 `Join_And_Extract.bat` 和 `README_FIRST.txt`。把它们放在同一个文件夹中，双击 `Join_And_Extract.bat` 自动合并并解压。解压完成后，双击 `KoeiNet_Windows` 文件夹中的 Program 01 或 Program 02 exe 即可使用。
 
 Development launch:
 
@@ -58,6 +80,7 @@ Build packaged applications:
 ```powershell
 python scripts\build_program_01.py
 python scripts\build_program_02.py
+python scripts\package_windows_release.py
 ```
 
 ## How To Use / 使用方式
@@ -104,6 +127,8 @@ Program 02:
 - [Program 02 中文说明](docs/PROGRAM_02_README_zh.md)
 - [Project Page (English)](docs/PROJECT_PAGE_en.md)
 - [项目展示页（中文）](docs/PROJECT_PAGE_zh.md)
+- [Download Desktop Apps](docs/DOWNLOAD_DESKTOP_APPS_en.md)
+- [桌面应用下载说明](docs/DOWNLOAD_DESKTOP_APPS_zh.md)
 - [Test Report](docs/TEST_REPORT_en.md)
 - [测试报告](docs/TEST_REPORT_zh.md)
 - [Cleanup Report](docs/CLEANUP_REPORT_en.md)
@@ -135,6 +160,7 @@ Ignored local resources include:
 - `venv/`, `.venv/`, `env/`
 - `input/`, `output/`, `archive_unused/`
 - `dist/`, `build/`, `release/`
+- `release_packages/`
 - `models/`, `config/model_dir/`
 - `ffmpeg.exe`, `yolo11m.pt`
 - raw video, audio, and large model files
@@ -143,12 +169,12 @@ Small public demonstration data is kept under `examples/sample_inputs/` and `exa
 
 ## Notes and Limitations / 注意事项与限制
 
-- Large model files and local packaged executables are not committed to GitHub. Rebuild them locally or publish them as GitHub Release assets when needed.
+- The downloadable Windows package is split into multiple parts because the shared runtime contains computer-vision and machine-learning libraries. Users must download every part before running `Join_And_Extract.bat`.
 - Raw panoramic videos and GPS trajectories may contain privacy-sensitive information. Only desensitized or minimal public samples should be uploaded.
 - Some analysis paths may depend on local model files, optional soundscape dependencies, or GPU availability.
 - The included smoke tests verify workflow connectivity and file I/O, not academic accuracy.
 
-- 大型模型文件和本地打包后的 exe 不直接提交到 GitHub，如需公开分发，建议作为 GitHub Release 附件发布。
+- Windows 桌面应用采用分卷压缩包下载，因为共享运行库包含计算机视觉和机器学习依赖。用户需要下载全部分卷后再运行 `Join_And_Extract.bat`。
 - 原始全景视频和 GPS 轨迹可能包含隐私信息，公开仓库中只应保留脱敏或最小示例数据。
 - 部分分析流程可能依赖本地模型文件、可选声景依赖或 GPU 环境。
 - 当前 smoke test 主要验证流程连通性和文件读写链路，不代表算法精度评估。

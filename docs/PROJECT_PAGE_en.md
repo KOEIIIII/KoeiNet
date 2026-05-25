@@ -87,5 +87,5 @@ The samples are not intended for accuracy evaluation.
 
 - Full video processing depends on local model resources, ffmpeg, and suitable hardware.
 - Raw panoramic videos and GPS trajectories may contain sensitive location or personal information and should not be committed to the public repository.
-- Packaged desktop applications are large and should be published through GitHub Releases or a separate delivery archive rather than committed to Git.
+- Windows desktop applications are distributed from the repository Releases page as split package parts. Download every `KoeiNet_Windows.zip.part*` file and `Join_And_Extract.bat`, run the joiner, then open the Program 01 or Program 02 executable from the extracted `KoeiNet_Windows` folder.
 - The system provides structured evidence and problem detection outputs; final interpretation should remain under expert review.

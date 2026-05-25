@@ -61,6 +61,21 @@ Program 02 是第二阶段应用。它读取 Program 01 输出，创建或编辑
 9. 运行问题路段识别。
 10. 导出并查看结果。
 
+## 桌面应用下载
+
+Windows 桌面应用从仓库 Releases 页面下载：
+
+```text
+https://github.com/KOEIIIII/KoeiNet/releases
+```
+
+请下载所有 `KoeiNet_Windows.zip.part*` 分卷文件、`Join_And_Extract.bat` 和 `README_FIRST.txt`。把它们放在同一文件夹中，双击 `Join_And_Extract.bat` 自动合并并解压。解压完成后，打开：
+
+```text
+KoeiNet_Windows/Program01_AnalysisVisualization.exe
+KoeiNet_Windows/Program02_ScoringProblemDetection.exe
+```
+
 ## 主要输出
 
 - `segments/segment_manifest.csv`
@@ -78,14 +93,14 @@ Program 02 是第二阶段应用。它读取 Program 01 输出，创建或编辑
 仓库中保留了用于流程验证的最小公开样例：
 
 - 一个带时间戳的极小视频样例。
-- 一个符合当前 `geo_sync` 字段要求的 GPS CSV。
-- 一个可供 Program 02 直接加载的最小 Program 01 输出目录。
+- 一个最小 GPS CSV。
+- 一个 Program 01 输出样例。
 
-这些示例只用于验证流程和文件读写，不用于评价算法精度。
+这些示例用于 smoke test 和界面流程演示，不代表真实研究数据规模。
 
 ## 注意事项与限制
 
-- 完整视频处理依赖本地模型资源、ffmpeg 和合适的硬件环境。
-- 原始全景视频和 GPS 轨迹可能包含位置隐私或个人信息，不应提交到公开仓库。
-- 打包后的桌面应用体量较大，建议通过 GitHub Releases 或独立交付包发布，不建议直接提交到 Git。
-- 系统输出用于组织证据和辅助识别问题，最终解释仍应由研究者或专业人员复核。
+- 原始全景视频和 GPS 轨迹可能包含位置隐私或个人信息，不应直接公开上传。
+- 部分分析流程依赖本地模型、可选声景依赖或 GPU 环境。
+- smoke test 主要验证流程连通性和文件读写链路，不代表算法精度评估。
+- 如果需要复现实地研究结果，应使用经过脱敏和授权的数据，并记录模型、参数和运行环境。

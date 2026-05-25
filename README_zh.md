@@ -18,14 +18,28 @@ Program 02 是第二阶段程序，可以基于新生成的 Program 01 输出运
 
 ## 快速开始
 
-本机交付目录中包含 PyInstaller one-folder 桌面应用：
+Windows 桌面应用下载地址：
 
 ```text
-dist/Program01_AnalysisVisualization/Program01_AnalysisVisualization.exe
-dist/Program02_ScoringProblemDetection/Program02_ScoringProblemDetection.exe
+https://github.com/KOEIIIII/KoeiNet/releases
 ```
 
-普通用户可以双击对应 exe 打开图形界面。分发时必须保留完整 one-folder 目录，不能只复制 exe 文件，因为 `_internal/` 中包含运行库和资源文件。
+请在 Releases 页面下载所有分卷文件：
+
+```text
+KoeiNet_Windows.zip.part001
+KoeiNet_Windows.zip.part002
+...
+Join_And_Extract.bat
+README_FIRST.txt
+```
+
+把所有下载文件放在同一个文件夹中，双击 `Join_And_Extract.bat` 自动合并并解压。解压完成后，打开：
+
+```text
+KoeiNet_Windows/Program01_AnalysisVisualization.exe
+KoeiNet_Windows/Program02_ScoringProblemDetection.exe
+```
 
 开发环境启动：
 
@@ -81,15 +95,17 @@ configs/street_type_coefficients.yaml
 
 ## 示例数据
 
-- `examples/sample_inputs/VID_20250625_101458_00_006.mp4`：3 秒最小测试视频，文件名包含可解析时间戳。
-- `examples/sample_inputs/sample_gps.csv`：符合当前 `geo_sync` 字段要求的最小 GPS 示例。
-- `examples/sample_outputs/minimal_program01_output/`：Program 02 可直接加载的最小 Program 01 输出。
+仓库中保留了用于流程验证的最小公开样例：
 
-示例数据只用于验证流程和文件读写，不用于评价算法精度。
+- `examples/sample_inputs/VID_20250625_101458_00_006.mp4`
+- `examples/sample_inputs/sample_gps.csv`
+- `examples/sample_outputs/minimal_program01_output/`
+
+这些样例用于 smoke test 和界面流程演示，不代表完整研究数据规模。
 
 ## 安装环境
 
-建议使用 Python 3.11 和虚拟环境：
+推荐 Python 3.10 或 3.11。
 
 ```powershell
 python -m venv venv
@@ -104,7 +120,7 @@ pip install -r requirements_gui.txt
 pip install -r requirements_optional_soundscape.txt
 ```
 
-部分完整流程依赖本地外置资源，例如 `ffmpeg.exe`、`yolo11m.pt`、`models/` 和 `config/model_dir/`。这些文件体量较大，不建议直接提交到 GitHub；可通过 release assets、Git LFS 或本地资源包分发。
+部分完整流程依赖本地外置资源，例如 `ffmpeg.exe`、`yolo11m.pt`、`models/` 和 `config/model_dir/`。公开 Windows 版本采用分卷包分发，用户从 Releases 页面下载所有分卷后即可运行桌面程序，无需安装 Python。
 
 ## 打包
 
@@ -113,9 +129,10 @@ python scripts\build_program_01.py --dry-run
 python scripts\build_program_02.py --dry-run
 python scripts\build_program_01.py
 python scripts\build_program_02.py
+python scripts\package_windows_release.py
 ```
 
-打包结果位于 `dist/`。仓库 `.gitignore` 默认排除 `dist/`，因为 exe 和运行库体量较大。需要发布双击应用时，建议使用 GitHub Releases 或单独交付压缩包。
+打包结果位于 `dist/`。`scripts/package_windows_release.py` 会基于两个 PyInstaller 目录生成共享运行库的分卷下载包，输出到 `release_packages/KoeiNet_Windows/`。
 
 ## 文档
 

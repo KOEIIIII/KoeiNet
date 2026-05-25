@@ -25,7 +25,13 @@ dist/Program01_AnalysisVisualization/Program01_AnalysisVisualization.exe
 dist/Program02_ScoringProblemDetection/Program02_ScoringProblemDetection.exe
 ```
 
-Double-click either executable to open the graphical interface. Keep the whole one-folder directory intact when sharing the application; the `_internal/` folder contains required runtime libraries and bundled resources.
+Public Windows desktop downloads are distributed from:
+
+```text
+https://github.com/KOEIIIII/KoeiNet/releases
+```
+
+Download every `KoeiNet_Windows.zip.part001`, `KoeiNet_Windows.zip.part002`, etc. file, plus `Join_And_Extract.bat` and `README_FIRST.txt`. Put them in the same folder, double-click `Join_And_Extract.bat`, then open `KoeiNet_Windows/Program01_AnalysisVisualization.exe` or `KoeiNet_Windows/Program02_ScoringProblemDetection.exe`.
 
 For development:
 
@@ -104,7 +110,7 @@ Optional soundscape dependencies:
 pip install -r requirements_optional_soundscape.txt
 ```
 
-Some full pipeline features require local external assets such as `ffmpeg.exe`, `yolo11m.pt`, `models/`, and `config/model_dir/`. These files are large and should not be committed directly to GitHub. Use release assets, Git LFS, or a local resource package when distributing them.
+Some full pipeline features require local external assets such as `ffmpeg.exe`, `yolo11m.pt`, `models/`, and `config/model_dir/`. Public Windows releases use a split package so users can download all parts from the repository Releases page and run the applications without installing Python.
 
 ## Packaging
 
@@ -113,9 +119,10 @@ python scripts\build_program_01.py --dry-run
 python scripts\build_program_02.py --dry-run
 python scripts\build_program_01.py
 python scripts\build_program_02.py
+python scripts\package_windows_release.py
 ```
 
-Build outputs are written to `dist/`. The repository `.gitignore` excludes `dist/` by default because the generated executables and runtime libraries are too large for normal source control. Publish packaged applications through GitHub Releases or a separate delivery archive.
+Build outputs are written to `dist/`. `scripts/package_windows_release.py` creates split download files under `release_packages/KoeiNet_Windows/`.
 
 ## Documentation
 
