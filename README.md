@@ -39,25 +39,25 @@ KoeiNet_Windows/Program01_AnalysisVisualization.exe
 KoeiNet_Windows/Program02_ScoringProblemDetection.exe
 ```
 
-Please download the six files listed above from **Assets**. The automatically generated **Source code (zip)** and **Source code (tar.gz)** files are for developers, not for directly running the de[...]
+Please download the six files listed above from **Assets**. The automatically generated **Source code (zip)** and **Source code (tar.gz)** files are for developers, not for directly running the desktop applications.
 
-KoeiNet supports street-space analysis, GPS spatial anchoring, segment-level multimodal evidence organization, manual annotation, street-type-specific coefficient configuration, problem-segment id[...]
+KoeiNet supports street-space analysis, GPS spatial anchoring, segment-level multimodal evidence organization, manual annotation, street-type-specific coefficient configuration, problem-segment identification and export.
 
-KoeiNet 面向历史街区街道空间评价，支持全景视频分析、GPS 空间锚定、多模态证据组织、人工裁定标签、不同街道类型的系数配置、问题路段识别和�[...]
+KoeiNet 面向历史街区街道空间评价，支持全景视频分析、GPS 空间锚定、多模态证据组织、人工裁定标签、不同街道类型的系数配置、问题路段识别和导出等功能。
 
 ## Application Modules / 应用模块
 
 ### Program 01: Basic Data Analysis and Spatial Visualization
 
-Program 01 is the first-stage application. It reads panoramic video and GPS / trajectory files, extracts analysis frames, organizes segment-level results, aligns segments to spatial trajectories, [...]
+Program 01 is the first-stage application. It reads panoramic video and GPS / trajectory files, extracts analysis frames, organizes segment-level results, aligns segments to spatial trajectories, and generates local web visualizations.
 
 Program 01 是第一阶段应用，负责读取全景视频和 GPS / 轨迹文件，完成分析帧抽取、片段级结果组织、轨迹对齐、GIS 文件导出和本地网页可视化生成。
 
 ### Program 02: Manual Scoring, Multimodal Fusion, and Problem-Segment Detection
 
-Program 02 is the second-stage application. It loads Program 01 outputs, creates or edits manual annotation CSV files, supports street-type coefficient configuration, calculates segment-level prob[...]
+Program 02 is the second-stage application. It loads Program 01 outputs, creates or edits manual annotation CSV files, supports street-type coefficient configuration, calculates segment-level priority scores, and merges adjacent problem segments into continuous problem episodes for export and review.
 
-Program 02 是第二阶段应用，基于 Program 01 的输出继续进行人工评分、多模态融合参数配置、问题优先级计算，并将相邻问题片段合并为连续问题路段��[...]
+Program 02 是第二阶段应用，基于 Program 01 的输出继续进行人工评分、多模态融合参数配置、问题优先级计算，并将相邻问题片段合并为连续问题路段，方便导出与审阅。
 
 ## Core Workflow / 核心流程
 
@@ -103,7 +103,7 @@ KoeiNet_Windows/Program02_ScoringProblemDetection.exe
 https://github.com/KOEIIIII/KoeiNet/releases
 ```
 
-下载所有 `KoeiNet_Windows.zip.part001`、`KoeiNet_Windows.zip.part002` 等分卷文件，以及 `Join_And_Extract.bat` 和 `README_FIRST.txt`。把它们放在同一个文件夹中，双击 `[...]
+下载所有 `KoeiNet_Windows.zip.part001`、`KoeiNet_Windows.zip.part002` 等分卷文件，以及 `Join_And_Extract.bat` 和 `README_FIRST.txt`。把它们放在同一个文件夹中，双击 `Join_And_Extract.bat`。
 
 Development launch:
 
@@ -136,7 +136,7 @@ Program 02:
 1. Launch Program 02 / 打开 Program 02。
 2. Load the Program 01 output folder / 加载 Program 01 输出结果。
 3. Create or load an annotation CSV / 创建或加载人工评分 CSV。
-4. Fill or edit scores such as `comfort_score`, `vitality_score`, `soundscape_pleasantness`, `soundscape_eventfulness`, `overall_problem_severity`, and `confidence_score` / 填写或修改相关�[...]
+4. Fill or edit scores such as `comfort_score`, `vitality_score`, `soundscape_pleasantness`, `soundscape_eventfulness`, `overall_problem_severity`, and `confidence_score` / 填写或修改相关评分字段。
 5. Load, edit, save, or restore street-type coefficients / 读取、修改、保存或恢复街道类型系数。
 6. Run problem-segment detection / 运行问题路段识别。
 7. Export problem segment and problem episode results / 导出问题片段和连续问题路段结果。
@@ -168,8 +168,6 @@ Program 02:
 - [桌面应用下载说明](docs/DOWNLOAD_DESKTOP_APPS_zh.md)
 - [Test Report](docs/TEST_REPORT_en.md)
 - [测试报告](docs/TEST_REPORT_zh.md)
-- [Three parts results guide (English)](docs/THREE_PARTS_RESULTS_GUIDE_en.md)
-- [三部分结果说明（中文）](docs/THREE_PARTS_RESULTS_GUIDE_zh.md)
 
 ## Repository Contents / 仓库内容
 
@@ -206,7 +204,7 @@ Small public demonstration data is kept under `examples/sample_inputs/` and `exa
 
 ## Notes and Limitations / 注意事项与限制
 
-- The downloadable Windows package is split into multiple parts because the shared runtime contains computer-vision and machine-learning libraries. Users must download every part before running `[...]
+- The downloadable Windows package is split into multiple parts because the shared runtime contains computer-vision and machine-learning libraries. Users must download every part before running the extractor.
 - Raw panoramic videos and GPS trajectories may contain privacy-sensitive information. Only desensitized or minimal public samples should be uploaded.
 - Some analysis paths may depend on local model files, optional soundscape dependencies, or GPU availability.
 - The included smoke tests verify workflow connectivity and file I/O, not academic accuracy.
