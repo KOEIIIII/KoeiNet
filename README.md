@@ -39,7 +39,7 @@ KoeiNet_Windows/Program01_AnalysisVisualization.exe
 KoeiNet_Windows/Program02_ScoringProblemDetection.exe
 ```
 
-Please download the files listed above from **Assets**. The automatically generated "Source code (zip)" and "Source code (tar.gz)" archives are for developers and do not contain the packaged deskt[...]
+Please download the files listed above from **Assets**. The automatically generated "Source code (zip)" and "Source code (tar.gz)" archives are for developers and do not contain the packaged desktop runtime.
 
 KoeiNet supports street-space analysis, GPS spatial anchoring, segment-level multimodal evidence organization, manual annotation, street-type-specific coefficient configuration, problem-segment detection and export.
 
@@ -169,33 +169,8 @@ web/        local web visualization and annotation resources
 tests/      basic test placeholders and smoke-test support
 ```
 
-## Files Not Included in Git / 未纳��� Git 的文件
+## Files Not Included in Git / 未纳入 Git 的文件
 
 The repository excludes local private data, temporary outputs, virtual environments, packaged executables, model weights, and API key files by default.
 
-仓库默认不提交本地隐私数据、临时输出、虚拟环境、打包产物、模型权重和真实 API key 文件。
-
-Ignored local resources include:
-
-- `apikey.env`
-- `venv/`, `.venv/`, `env/`
-- `input/`, `output/`, `archive_unused/`
-- `dist/`, `build/`, `release/`
-- `release_packages/`
-- `models/`, `config/model_dir/`
-- `ffmpeg.exe`, `yolo11m.pt`
-- raw video, audio, and large model files
-
-Small public demonstration data is kept under `examples/sample_inputs/` and `examples/sample_outputs/`.
-
-## Notes and Limitations / 注意事项与限制
-
-- The downloadable Windows package is split into multiple parts because the shared runtime contains computer-vision and machine-learning libraries. Users must download every part before running the extractor.
-- Raw panoramic videos and GPS trajectories may contain privacy-sensitive information. Only desensitized or minimal public samples should be uploaded.
-- Some analysis paths may depend on local model files, optional soundscape dependencies, or GPU availability.
-- The included smoke tests verify workflow connectivity and file I/O, not academic accuracy.
-
-- Windows 桌面应用采用分卷压缩包下载，因为共享运行库包含计算机视觉���机器学习依赖。用户需要下载全部分卷后再运行 `Join_And_Extract.bat`。
-- 原始全景视频和 GPS 轨迹可能包含隐私信息，公开仓库中只应保留脱敏或最小示例数据。
-- 部分分析流程可能依赖本地模型文件、可选声景依赖或 GPU 环境。
-- 当前 smoke test 主要验证流程连通性和文件读写链路，不代表算法精度评估。
+原始全景视频和 GPS 轨迹可能包含位置隐私或个人信息。不要将真实采集视频、私人 GPS 轨迹、API key、本地模型缓存或打包二进制文件提交到源码仓库。
