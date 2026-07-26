@@ -1,6 +1,6 @@
 # KoeiNet
 
-KoeiNet 是一个面向历史街区的全景视频多模态街道空间智能评价系统，支持街道空间分析、GPS 空间锚定、多模态证据组织、人工裁定标签和问题路段识别。
+KoeiNet 是一个面向历史街区的全景视频多模态街道空间智能评价系统，支持街道空间分析、GPS 空间锚定、多模态证据组织、人工裁定标签和问题路段识别等功能。
 
 当前仓库保留原有研究型处理流程，并整理为两个递进式应用：
 
@@ -29,7 +29,8 @@ https://github.com/KOEIIIII/KoeiNet/releases
 ```text
 KoeiNet_Windows.zip.part001
 KoeiNet_Windows.zip.part002
-...
+KoeiNet_Windows.zip.part003
+KoeiNet_Windows.zip.part004
 Join_And_Extract.bat
 README_FIRST.txt
 ```
@@ -120,7 +121,7 @@ pip install -r requirements_gui.txt
 pip install -r requirements_optional_soundscape.txt
 ```
 
-部分完整流程依赖本地外置资源，例如 `ffmpeg.exe`、`yolo11m.pt`、`models/` 和 `config/model_dir/`。公开 Windows 版本采用分卷包分发，用户从 Releases 页面下载所有分卷后即可运行桌面程序，无需安装 Python。
+部分完整流程依赖本地外置资源，例如 `ffmpeg.exe`、`yolo11m.pt`、`models/` 和 `config/model_dir/`。公开 Windows 版本采用分卷包分发，用户从 Releases 页面下载分卷并合并后即可运行。
 
 ## 打包
 
@@ -144,4 +145,4 @@ python scripts\package_windows_release.py
 
 ## 隐私与限制
 
-原始全景视频和 GPS 轨迹可能包含位置隐私或个人信息。不要将真实采集视频、私人 GPS 轨迹、API key、本地模型缓存或打包二进制文件提交到源码仓库。当前示例文件仅用于流程验证。
+原始全景视频和 GPS 轨迹可能包含位置隐私或个人信息。不要将真实采集视频、私人 GPS 轨迹、API key、本地模型缓存或打包二进制文件提交到源码仓库。
