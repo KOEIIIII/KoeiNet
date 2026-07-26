@@ -39,25 +39,25 @@ KoeiNet_Windows/Program01_AnalysisVisualization.exe
 KoeiNet_Windows/Program02_ScoringProblemDetection.exe
 ```
 
-Please download the six files listed above from **Assets**. The automatically generated **Source code (zip)** and **Source code (tar.gz)** files are for developers, not for directly running the de[...]
+Please download the files listed above from **Assets**. The automatically generated "Source code (zip)" and "Source code (tar.gz)" archives are for developers and do not contain the packaged deskt[...]
 
-KoeiNet supports street-space analysis, GPS spatial anchoring, segment-level multimodal evidence organization, manual annotation, street-type-specific coefficient configuration, problem-segment id[...]
+KoeiNet supports street-space analysis, GPS spatial anchoring, segment-level multimodal evidence organization, manual annotation, street-type-specific coefficient configuration, problem-segment detection and export.
 
-KoeiNet 面向历史街区街道空间评价，支持全景视频分析、GPS 空间锚定、多模态证据组织、人工裁定标签、不同街道类型的系数配置、问题路段识别和�[...]
+KoeiNet 面向历史街区街道空间评价，支持全景视频分析、GPS 空间锚定、多模态证据组织、人工裁定标签、不同街道类型的系数配置、问题路段识别与导出等功能。
 
 ## Application Modules / 应用模块
 
 ### Program 01: Basic Data Analysis and Spatial Visualization
 
-Program 01 is the first-stage application. It reads panoramic video and GPS / trajectory files, extracts analysis frames, organizes segment-level results, aligns segments to spatial trajectories, [...]
+Program 01 is the first-stage application. It reads panoramic video and GPS/trajectory files, extracts analysis frames, organizes segment-level results, aligns segments to spatial trajectories, and generates local web visualizations.
 
-Program 01 是第一阶段应用，负责读取全景视频和 GPS / 轨迹文件，完成分析帧抽取、片段级结果组织、轨迹对齐、GIS 文件导出和本地网页可视化生成。
+Program 01 是第一阶段应用，负责读取全景视频和 GPS/轨迹文件，完成分析帧抽取、片段级结果组织、轨迹对齐、GIS 文件导出以及本地网页可视化的生成。
 
 ### Program 02: Manual Scoring, Multimodal Fusion, and Problem-Segment Detection
 
-Program 02 is the second-stage application. It loads Program 01 outputs, creates or edits manual annotation CSV files, supports street-type coefficient configuration, calculates segment-level prob[...]
+Program 02 is the second-stage application. It loads Program 01 outputs, creates or edits manual annotation CSV files, supports street-type coefficient configuration, computes segment-level priority scores, and merges adjacent problem segments into continuous problem episodes for export and review.
 
-Program 02 是第二阶段应用，基于 Program 01 的输出继续进行人工评分、多模态融合参数配置、问题优先级计算，并将相邻问题片段合并为连续问题路段��[...]
+Program 02 是第二阶段应用，基于 Program 01 的输出继续进行人工评分、多模态融合参数配置、问题优先级计算，并将相邻问题片段合并为连续的问题路段以便导出与审阅。
 
 ## Core Workflow / 核心流程
 
@@ -70,7 +70,7 @@ Program 02 是第二阶段应用，基于 Program 01 的输出继续进行人工
 7. Complete manual scoring and adjudication / 完成人工评分与裁定。
 8. Configure street-type coefficients / 配置不同街道类型的问题识别系数。
 9. Run multimodal fusion and review / 进行多模态融合与复核。
-10. Detect problem segments and episodes / 识别问题路段与连续问题片段。
+10. Detect problem segments and episodes / 识别问题片段与连续问题路段。
 
 ## Quick Start / 快速开始
 
@@ -80,39 +80,23 @@ Download desktop applications from GitHub Releases:
 https://github.com/KOEIIIII/KoeiNet/releases
 ```
 
-For a packaged Windows release, download all files named like:
+For a packaged Windows release, download all parts named like the examples above and the `Join_And_Extract.bat` helper. Put the downloaded files in the same folder and run the batch file to join and extract the packaged runtime.
 
-```text
-KoeiNet_Windows.zip.part001
-KoeiNet_Windows.zip.part002
-...
-Join_And_Extract.bat
-README_FIRST.txt
-```
-
-Put all downloaded files in the same folder, then double-click `Join_And_Extract.bat`. After extraction, open:
+After extraction, run one of the executables:
 
 ```text
 KoeiNet_Windows/Program01_AnalysisVisualization.exe
 KoeiNet_Windows/Program02_ScoringProblemDetection.exe
 ```
 
-桌面应用下载地址：
-
-```text
-https://github.com/KOEIIIII/KoeiNet/releases
-```
-
-下载所有 `KoeiNet_Windows.zip.part001`、`KoeiNet_Windows.zip.part002` 等分卷文件，以及 `Join_And_Extract.bat` 和 `README_FIRST.txt`。把它们放在同一个文件夹中，双击 `[...]
-
-Development launch:
+Development launch (from a Windows PowerShell or compatible shell):
 
 ```powershell
 python scripts\run_program_01.py --launch_gui
 python scripts\run_program_02.py --launch_gui
 ```
 
-Build packaged applications:
+Build packaged applications (development):
 
 ```powershell
 python scripts\build_program_01.py
@@ -129,17 +113,17 @@ Program 01:
 3. Select the GPS file / 选择 GPS 文件。
 4. Select the output folder and configure basic parameters / 选择输出目录并设置基础参数。
 5. Start analysis / 开始分析。
-6. Open the output folder or local visualization page / 打开输出文件夹或可视化网页。
+6. Open the output folder or local visualization page / 打开输出文件夹或本地可视化网页。
 
 Program 02:
 
 1. Launch Program 02 / 打开 Program 02。
 2. Load the Program 01 output folder / 加载 Program 01 输出结果。
 3. Create or load an annotation CSV / 创建或加载人工评分 CSV。
-4. Fill or edit scores such as `comfort_score`, `vitality_score`, `soundscape_pleasantness`, `soundscape_eventfulness`, `overall_problem_severity`, and `confidence_score` / 填写或修改相关�[...]
+4. Fill or edit scores such as `comfort_score`, `vitality_score`, `soundscape_pleasantness`, `soundscape_eventfulness`, `overall_problem_severity`, and `confidence_score` / 填写或修改相关评分字段。
 5. Load, edit, save, or restore street-type coefficients / 读取、修改、保存或恢复街道类型系数。
 6. Run problem-segment detection / 运行问题路段识别。
-7. Export problem segment and problem episode results / 导出问题片段和连续问题路段结果。
+7. Export problem segment and problem episode results / 导出问题片段与连续问题路段结果。
 
 ## Key Outputs / 主要输出
 
@@ -185,7 +169,7 @@ web/        local web visualization and annotation resources
 tests/      basic test placeholders and smoke-test support
 ```
 
-## Files Not Included in Git / 未纳入 Git 的文件
+## Files Not Included in Git / 未纳��� Git 的文件
 
 The repository excludes local private data, temporary outputs, virtual environments, packaged executables, model weights, and API key files by default.
 
@@ -206,12 +190,12 @@ Small public demonstration data is kept under `examples/sample_inputs/` and `exa
 
 ## Notes and Limitations / 注意事项与限制
 
-- The downloadable Windows package is split into multiple parts because the shared runtime contains computer-vision and machine-learning libraries. Users must download every part before running `[...]
+- The downloadable Windows package is split into multiple parts because the shared runtime contains computer-vision and machine-learning libraries. Users must download every part before running the extractor.
 - Raw panoramic videos and GPS trajectories may contain privacy-sensitive information. Only desensitized or minimal public samples should be uploaded.
 - Some analysis paths may depend on local model files, optional soundscape dependencies, or GPU availability.
 - The included smoke tests verify workflow connectivity and file I/O, not academic accuracy.
 
-- Windows 桌面应用采用分卷压缩包下载，因为共享运行库包含计算机视觉和机器学习依赖。用户需要下载全部分卷后再运行 `Join_And_Extract.bat`。
+- Windows 桌面应用采用分卷压缩包下载，因为共享运行库包含计算机视觉���机器学习依赖。用户需要下载全部分卷后再运行 `Join_And_Extract.bat`。
 - 原始全景视频和 GPS 轨迹可能包含隐私信息，公开仓库中只应保留脱敏或最小示例数据。
 - 部分分析流程可能依赖本地模型文件、可选声景依赖或 GPU 环境。
 - 当前 smoke test 主要验证流程连通性和文件读写链路，不代表算法精度评估。
