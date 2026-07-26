@@ -6,11 +6,11 @@
 
 - Emotional（情感）：来自 Program 02 的人工注释（annotation CSV），主要字段包括 `comfort_score`、`vitality_score`、`soundscape_pleasantness`、`soundscape_eventfulness`、`overall_problem_severity`、`confidence_score`。
 - Soundscape（声景）：Program 01（可选扩展）生成的音频段级特征，通常保存在 `soundscape/audio_segment_features.csv` 或 `audio_events/`。
-- Visual（视觉）：Program 01 输出的视觉段级特征，保存在 `visual/segment_visual_features.csv`（以及 `frames/`、`overlay/` 等可视化目录）。
+- Visual（视觉）：Program 01 输出的视觉段级特征，保存在 `visual/segment_visual_features.csv`（��及 `frames/`、`overlay/` 等可视化目录）。
 
 ## 所需输入
 
-1. 可被 ffmpeg/OpenCV 读取的全景视频文件。 
+1. 可被 ffmpeg/OpenCV 读取的全景视频文件。
 2. 含 `groupTime,gps_longitude,gps_latitude` 的 GPS/轨迹 CSV（`groupTime` 为 Unix 秒）。
 3. 运行 Program 01 得到输出目录（示例命令见英文版或 docs 目录）。
 4. 如果需要声景特征，请在 Program 01 中启用 `--enable_soundscape` 或 GUI 中的对应开关。
@@ -45,7 +45,10 @@ sound = pd.read_csv('output/VID/.../soundscape/audio_segment_features.csv')
 geo = pd.read_csv('output/VID/.../geo_sync/segment_geo_metadata.csv')
 anno = pd.read_csv('output/VID/.../validation/final_annotation_labels_adjudicated.csv')
 
-df = segments.merge(visual, on='segment_id', how='left').merge(sound, on='segment_id', how='left').merge(geo[['segment_id','matched_gps_longitude_gcj02','matched_gps_latitude_gcj02']], on='segment_id', how='left').merge(anno, on='segment_id', how='left')
+df = segments.merge(visual, on='segment_id', how='left') \
+    .merge(sound, on='segment_id', how='left') \
+    .merge(geo[['segment_id','matched_gps_longitude_gcj02','matched_gps_latitude_gcj02']], on='segment_id', how='left') \
+    .merge(anno, on='segment_id', how='left')
 ```
 
 4. 检查 `segment_id` 对齐、注释字段数值化、是否剔除低 `confidence_score` 的记录等。
@@ -60,7 +63,7 @@ df = segments.merge(visual, on='segment_id', how='left').merge(sound, on='segmen
 
 使用 `geo_sync/segment_geo_metadata.csv` 的 `matched_gps_*`（或 `_wgs84` 字段）在 Folium 或 GeoPandas 地图上可视化，按任一指标着色（如 `comfort_score`、Leq、`vegetation_fraction`、`priority_score`）。
 
-示例（Folium 简单示例）:
+示例（Folium 简单示例）：
 
 ```python
 import folium
@@ -81,7 +84,7 @@ m.save('map.html')
 
 ## 后续建议
 
-- 使用合并表进行回归或重要性分析；Program 02 已提供基于 `configs/street_type_coefficients.yaml` 的 `priority_score` 计算��辑。
+- 使用合并表进行回归或重要性分析；Program 02 已提供基于 `configs/street_type_coefficients.yaml` 的 `priority_score` 计算逻辑。
 - 导出 `merged.csv`、图表与 `map.html` 到 `deliverable/` 或 `problem_detection/` 以便共享与审查。
 
 ---
